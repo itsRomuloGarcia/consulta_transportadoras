@@ -26,7 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
   setTheme(prefersDark ? "dark" : "light");
 
   elements.searchButton.addEventListener("click", performSearch);
-  elements.cidadeInput.addEventListener("input", debounce(performSearch, 300));
+  elements.cidadeInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      performSearch();
+    }
+  });
   elements.estadoFilter.addEventListener("change", filterResults);
   elements.transportadoraFilter.addEventListener("change", filterResults);
   elements.themeToggle.addEventListener("click", toggleTheme);
