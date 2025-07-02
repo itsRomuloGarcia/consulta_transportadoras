@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="truck.png" type="image/png" />
+    <title>Consulta de Transportadoras</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="logo">
+          <i class="fas fa-truck"></i>
+          <h1>Consulta de Transportadoras</h1>
+        </div>
+        <p class="subtitle">Encontre os prazos de entrega por cidade</p>
+        <button id="themeToggle" class="theme-toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <div class="search-container">
+          <div class="search-box">
+            <input
+              type="text"
+              id="cidadeInput"
+              placeholder="Digite o nome da cidade..."
+              autocomplete="off"
+            />
+            <button id="searchButton" class="search-button">
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+          <div class="filter-options">
+            <select id="estadoFilter">
+              <option value="">Todos os estados</option>
+            </select>
+            <select id="transportadoraFilter">
+              <option value="">Todas transportadoras</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-container">
+          <div class="results-header">
+            <h2>Resultados da Pesquisa</h2>
+            <div class="results-count">
+              <span id="resultsCount">0</span> resultados encontrados
+            </div>
+          </div>
+
+          <div class="loading" id="loadingIndicator">
+            <i class="fas fa-spinner fa-spin"></i> Faça sua pesquisa e aguarde o
+            carregamento
+          </div>
+
+          <div class="no-results" id="noResultsMessage">
+            <i class="fas fa-info-circle"></i>
+            <p>Nenhum resultado encontrado para sua pesquisa.</p>
+          </div>
+
+          <div class="results-grid" id="resultsContainer">
+            <!-- Resultados serão inseridos aqui via JavaScript -->
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Desenvolvido por Rômulo Garcia &copy;
+          <span id="currentYear"></span>
+        </p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
