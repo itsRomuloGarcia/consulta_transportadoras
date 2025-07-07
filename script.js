@@ -15,6 +15,9 @@ const elements = {
   themeToggle: document.getElementById("themeToggle"),
 };
 
+const cidadeInput = document.getElementById("cidadeInput");
+const loadingIndicator = document.getElementById("loadingIndicator");
+
 let currentResults = [];
 let currentTheme = "dark";
 

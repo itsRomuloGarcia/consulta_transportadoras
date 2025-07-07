@@ -97,7 +97,7 @@ body {
 
 .search-container {
   background-color: var(--card-bg);
-  padding: 25px;
+  padding: 15px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin-bottom: 30px;
@@ -106,13 +106,13 @@ body {
 
 .search-box {
   display: flex;
-  gap: 10px;
+  gap: 05px;
   margin-bottom: 20px;
 }
 
 .search-box input {
   flex: 1;
-  padding: 12px 15px;
+  padding: 10px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
@@ -204,6 +204,10 @@ body {
   margin-bottom: 10px;
   font-size: 2rem;
   color: var(--primary-color);
+}
+
+.loading {
+  display: none;
 }
 
 .no-results i {
