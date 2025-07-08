@@ -1,11 +1,12 @@
 // Configuração
 const APP_URL =
-  "https://script.google.com/macros/s/AKfycbx67_obUOzi_VuUWrF0DUcTgZV5uMgwPfI2z1TtM7nAVtoD1CtdzEbXkp0pzvQ4H7dH/exec";
+  "https://script.google.com/macros/s/AKfycbwSbPLvfBYoTqy8XBOLpnZ8SK3GPLGW-inDWSbJ6gWOf0R2M3YHjvyk8GsQOOnWSvvm/exec";
 
 // Elementos DOM
 const elements = {
   cidadeInput: document.getElementById("cidadeInput"),
   searchButton: document.getElementById("searchButton"),
+  modalFilter: document.getElementById("modalFilter"), // Novo elemento
   estadoFilter: document.getElementById("estadoFilter"),
   transportadoraFilter: document.getElementById("transportadoraFilter"),
   resultsContainer: document.getElementById("resultsContainer"),
@@ -14,9 +15,6 @@ const elements = {
   resultsCount: document.getElementById("resultsCount"),
   themeToggle: document.getElementById("themeToggle"),
 };
-
-const cidadeInput = document.getElementById("cidadeInput");
-const loadingIndicator = document.getElementById("loadingIndicator");
 
 let currentResults = [];
 let currentTheme = "dark";
@@ -34,12 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
       performSearch();
     }
   });
+  elements.modalFilter.addEventListener("change", filterResults); // Novo listener
   elements.estadoFilter.addEventListener("change", filterResults);
   elements.transportadoraFilter.addEventListener("change", filterResults);
   elements.themeToggle.addEventListener("click", toggleTheme);
 });
 
-// Tema
+// Tema (mantido igual)
 function toggleTheme() {
   currentTheme = currentTheme === "dark" ? "light" : "dark";
   setTheme(currentTheme);
@@ -57,7 +56,7 @@ function setTheme(theme) {
   }
 }
 
-// Pesquisa por cidade (faz fetch com filtro)
+// Pesquisa por cidade (atualizada com filtro de modal)
 async function performSearch() {
   const cidade = elements.cidadeInput.value.trim();
 
@@ -68,8 +67,9 @@ async function performSearch() {
 
   showLoading(true);
   try {
+    const modal = elements.modalFilter.value;
     const response = await fetch(
-      `${APP_URL}?cidade=${encodeURIComponent(cidade)}`
+      `${APP_URL}?cidade=${encodeURIComponent(cidade)}&modal=${modal}`
     );
     const data = await response.json();
 
@@ -84,13 +84,15 @@ async function performSearch() {
   }
 }
 
-// Filtros
+// Filtros (atualizada com modal)
 function populateFilters(data) {
   const estados = [...new Set(data.map((i) => i.estado))].sort();
   const transportadoras = [
     ...new Set(data.map((i) => i.transportadora)),
   ].sort();
+  const modais = [...new Set(data.map((i) => i.modal))].sort(); // Novo
 
+  // Mantemos o modal filter estático pois já tem as opções fixas
   elements.estadoFilter.innerHTML =
     '<option value="">Todos os estados</option>' +
     estados.map((e) => `<option value="${e}">${e}</option>`).join("");
@@ -101,11 +103,14 @@ function populateFilters(data) {
 }
 
 function filterResults() {
+  const modal = elements.modalFilter.value; // Novo filtro
   const estado = elements.estadoFilter.value;
   const transportadora = elements.transportadoraFilter.value;
 
   const data = currentResults.filter((item) => {
     return (
+      (modal === "todos" ||
+        item.modal?.toLowerCase() === modal.toLowerCase()) &&
       (!estado || item.estado === estado) &&
       (!transportadora || item.transportadora === transportadora)
     );
@@ -114,7 +119,7 @@ function filterResults() {
   displayResults(data);
 }
 
-// Exibir resultados
+// Exibir resultados (atualizada para mostrar modal)
 function displayResults(data) {
   elements.resultsContainer.innerHTML = "";
 
@@ -133,7 +138,10 @@ function displayResults(data) {
     <div class="result-card">
       <h3>${item.cidade} <small>(${item.estado})</small></h3>
       <p><strong>Transportadora:</strong> ${item.transportadora}</p>
-      <p><strong>Prazo de entrega:</strong> <span class="days">${item.diasUteis} dias úteis</span></p>
+      <p><strong>Modal:</strong> ${item.modal || "Não especificado"}</p>
+      <p><strong>Prazo de entrega:</strong> <span class="days">${
+        item.diasUteis
+      } dias úteis</span></p>
     </div>
   `
     )
@@ -142,7 +150,7 @@ function displayResults(data) {
   elements.resultsContainer.innerHTML = cards;
 }
 
-// Utilitários
+// Utilitários (mantidos iguais)
 function showLoading(show) {
   elements.loadingIndicator.style.display = show ? "block" : "none";
   elements.resultsContainer.style.display = show ? "none" : "grid";
