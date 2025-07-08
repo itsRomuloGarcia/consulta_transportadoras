@@ -1,8 +1,6 @@
-// Configuração
 const APP_URL =
   "https://script.google.com/macros/s/AKfycbwSbPLvfBYoTqy8XBOLpnZ8SK3GPLGW-inDWSbJ6gWOf0R2M3YHjvyk8GsQOOnWSvvm/exec";
 
-// Elementos DOM
 const elements = {
   cidadeInput: document.getElementById("cidadeInput"),
   searchButton: document.getElementById("searchButton"),
@@ -19,7 +17,6 @@ const elements = {
 let currentResults = [];
 let currentTheme = "dark";
 
-// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("currentYear").textContent = new Date().getFullYear();
 
@@ -56,7 +53,6 @@ function setTheme(theme) {
   }
 }
 
-// Pesquisa por cidade (atualizada com filtro de modal)
 async function performSearch() {
   const cidade = elements.cidadeInput.value.trim();
 
@@ -84,15 +80,13 @@ async function performSearch() {
   }
 }
 
-// Filtros (atualizada com modal)
 function populateFilters(data) {
   const estados = [...new Set(data.map((i) => i.estado))].sort();
   const transportadoras = [
     ...new Set(data.map((i) => i.transportadora)),
   ].sort();
-  const modais = [...new Set(data.map((i) => i.modal))].sort(); // Novo
+  const modais = [...new Set(data.map((i) => i.modal))].sort();
 
-  // Mantemos o modal filter estático pois já tem as opções fixas
   elements.estadoFilter.innerHTML =
     '<option value="">Todos os estados</option>' +
     estados.map((e) => `<option value="${e}">${e}</option>`).join("");
@@ -103,7 +97,7 @@ function populateFilters(data) {
 }
 
 function filterResults() {
-  const modal = elements.modalFilter.value; // Novo filtro
+  const modal = elements.modalFilter.value;
   const estado = elements.estadoFilter.value;
   const transportadora = elements.transportadoraFilter.value;
 
@@ -119,7 +113,6 @@ function filterResults() {
   displayResults(data);
 }
 
-// Exibir resultados (atualizada para mostrar modal)
 function displayResults(data) {
   elements.resultsContainer.innerHTML = "";
 
@@ -150,7 +143,6 @@ function displayResults(data) {
   elements.resultsContainer.innerHTML = cards;
 }
 
-// Utilitários (mantidos iguais)
 function showLoading(show) {
   elements.loadingIndicator.style.display = show ? "block" : "none";
   elements.resultsContainer.style.display = show ? "none" : "grid";

@@ -264,18 +264,43 @@ body {
 }
 
 .footer {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   margin-top: 40px;
   padding: 20px 0;
   color: var(--text-light);
   font-size: 0.9rem;
   border-top: 1px solid var(--border-color);
+  text-align: center;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .search-box {
+.footer p {
+  margin: 0;
+}
+
+.footer .social-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer .social-links a {
+  color: var(--text-light);
+  font-size: 1.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+@media (max-width: 480px) {
+  .footer {
     flex-direction: column;
+    gap: 10px;
   }
 
   .filter-options {
