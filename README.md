@@ -6,7 +6,7 @@ Este é um projeto de teste que permite consultar prazos de entrega entre cidade
 
 ## Sobre o Projeto
 
-A aplicação foi criada com foco em praticidade e usabilidade, permitindo:
+A aplicação foi criada com foco em praticidade e usabilidade:
 
 - Consultar rapidamente prazos de entrega filtrando por cidade, estado, transportadora e modal
 - Carregar os dados dinamicamente de uma planilha no Google Sheets
@@ -22,5 +22,5 @@ A aplicação foi criada com foco em praticidade e usabilidade, permitindo:
 ## Como Funciona
 
 - O usuário digita uma cidade e pode aplicar filtros por estado, transportadora e modal
-- Os dados são carregados via JavaScript e exibidos de forma dinâmica
+- Os dados são carregados via JavaScript buscando na API do Google App Script e exibidos de forma dinâmica
 
