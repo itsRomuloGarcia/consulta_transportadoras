@@ -29,13 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
       performSearch();
     }
   });
-  elements.modalFilter.addEventListener("change", filterResults); // Novo listener
+  elements.modalFilter.addEventListener("change", filterResults); 
   elements.estadoFilter.addEventListener("change", filterResults);
   elements.transportadoraFilter.addEventListener("change", filterResults);
   elements.themeToggle.addEventListener("click", toggleTheme);
 });
 
-// Tema (mantido igual)
 function toggleTheme() {
   currentTheme = currentTheme === "dark" ? "light" : "dark";
   setTheme(currentTheme);
